@@ -133,12 +133,14 @@ namespace RaymapGame
                 case Settings.Mode.Rayman3PC:
                     // The OGs work the best
                     foreach (var pb in FindObjectsOfType<PersoBehaviour>()) {
-                        Type matchModel = null, matchFamily = null;
+                        Type matchName = null, matchModel = null, matchFamily = null;
                         foreach (var s in persoScripts) {
+                            if (s.Name == pb.perso.namePerso) matchName = s;
                             if (s.Name == pb.perso.nameModel) matchModel = s;
                             if (s.Name == pb.perso.nameFamily) matchFamily = s;
                         }
-                        if (matchModel != null) persos.Add((PersoController)pb.gameObject.AddComponent(matchModel));
+                        if (matchName != null) persos.Add((PersoController)pb.gameObject.AddComponent(matchName));
+                        else if (matchModel != null) persos.Add((PersoController)pb.gameObject.AddComponent(matchModel));
                         else if (matchFamily != null) persos.Add((PersoController)pb.gameObject.AddComponent(matchFamily));
                     }
                     break;
